@@ -360,3 +360,106 @@ Formulas:
 	  								 (A<->B) abbreviates (A->B)^(B->A)
 	- If A is a formula, and x is a variable, so is Vx(A).
 	- If A is a formula, and x is a variable, so is Ex(A).   Vx(_|_) is a valid formula.
+
+Day 11-------------------------------------------------------------------------------------------------------
+
+Soundness + Completeness: there is a formal proof
+A1, ..., An |- B
+Smantics:
+A1, ..., An |= B (there is no interpretation that makes (A1, ..., An) true and B false)
+
+Semantics of FOL
+Structure/Model: M
+- Domain |M| =/= emptyset
+- for every constant a:
+	a^M e |M|      "the interpretation of a in M"
+- for every n-place function symbol f:
+	f^M : |M|^n -> |M|
+- for every n-place predicate symbol P:
+	p^M <= |M|^n
+
+Satisfaction
+	M,                    S 					  |= A
+Structure 	Variable Assignment S: Var -> |M|    Formula
+
+Inductively defined:
+	if A is atomic: A === P(t1, ..., tn)   "A is of the form P followed by n terms"
+		M, S |= P(t1, ..., tn)   IFF   <Val^M_s(t1), ..., Val^M_s(tn)> e P^M
+
+Val^M_s(t) ... the object picked out by t in M, S		"value of t in model M relative to the variable assignment S"
+Val^M_s(a) = a^M
+Val^M_s(x) = s(x)
+Val^M_s(f(t1, ..., tn)) =  f^M( Val^M_s(t1), ..., Val^M_s(tn))
+
+Example:
+	|M| = {1, 2, 3}
+	a^M = 2
+	s(x) = 1
+	P^M = {<1, 2>, <2, 3>}
+
+M, S |= P(a, x) = Val^M_s(a) = a^M = 2
+				= Val^M_s(x) = s(x) = 1
+				<2, 1> e P^M?
+No, so M |=/= P(a, x)
+
+(M, S |= -A) IFF (M, S |=/= A)
+(M, S |= (A^B)) IFF (M, S |= A AND M, S |= B)
+
+M, S |= Ex(A(x))
+s ~ s' IFF s(y) = s'(y) for all variables y other than x
+  x  (x variant)
+IFF M, S' |= A(x) for some s' ~x s
+
+M, S |= Vx(A) IFF M, S' |= A for all s' ~x s
+
+Example:
+	|M| = {1, 2, 3}
+	a^M = 2
+	s(x) = 1
+	P^M = {<1, 2>, <2, 3>}
+
+M, S |=? Ex(P(a, x))
+Is there some s' ~x s
+M, S' |= P(a, x)
+s'(x) = 1    		    s'(x) = 2        s'(x) = 3
+M, S' |=/= P(a, x)		Also No          M, S' |= P(a, x)
+<2, 1>					<2, 2>			 <2, 3>
+M, S |= Ex(P(a, x))  QED
+
+
+PROP: M, S |= A[t/x]		A[t/x] ... The result of replacing every free occurence of x in A B y t?
+IFF M, S' |= A where s'(x) = Val(t), s'(v) = s(v) for v =/= x. (s' ~x s)
+M, S |= Ex(A(x, f(a)) ^ A(y, a))
+IFF
+M, S' |= Ex(A(x, z) ^ A(y, a))	[f(a)/z]
+	     s'(z) = Val(f(a))
+
+|M| = {1, 2, 3}
+a^M = 2
+A = {<1, 2>, <2, 3>}
+f^M(n) = 3
+s(x) = 1
+s(x) = 2
+s(x) = 3
+
+PROOF By induction on A:
+Base case:
+	A is atomic.
+	A === P(t1, ..., tn)
+	M, S |= A[t/x] IFF M, S' |= A where S'(x) = Val^M_s(t)
+
+M, S |= P(t1, ..., tn)[t/x]
+		P(t1[t/x], ..., tn[t/x])
+IFF <Val(t1[t/x]), ..., Val(tn[t/x])> e P^M
+IFF <Val(t1), ..., Val(tn)> e P^M
+IFF M, S' |= P(t1, ..., tn)
+
+t1 = f(2)
+t = a
+Val(f(2)[a/z])
+Val(f(z))  s'(z) = a^M
+
+Inductive step:
+M, S |= (A^B)[t/x] IFF M, S' |- A ^ B
+IFF M, S |= (A[t/x] ^ B[t/x])
+i gave up here
