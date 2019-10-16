@@ -1,0 +1,35 @@
+PROP: (A = B <-> A <= B and B <= A)
+PROOF OF PROP:
+	WTS: (1) IF (A = B)				THEN (A <= B AND B <= A)
+		 (2) IF (A <= B AND B <= A) THEN (A = B)
+		 PROOF OF (1):
+			(1) Suppose (A = B)
+		 	WTS: (A <= B AND B <= A)
+				 WTS: (a) A <= B
+					By def. of subset: A <= B <-> Vx (x e A -> x e B)
+					From the assumption (A = B), by extensionality we have Vx (x e A <-> x e B)
+					Vx (x e A <-> x e B) = Vx (x e A -> x e B) AND Vx (x e B -> x e A)
+					In particular, Vx (x e A -> x e B)
+					Therefore A <= B. QED
+				 WTS: (b) B <= A
+					By def. of subset: B <= A <-> Vx (x e B -> x e A)
+					From the assumption (A = B), by extensionality we have Vx (x e A <-> x e B)
+					Vx (x e A <-> x e B) = Vx (x e A -> x e B) AND Vx (x e B -> x e A)
+					In particular, Vx (x e B -> x e A)
+					Therefore B <= A. QED
+			Therefore (A <= B AND B <= A). QED
+		 PROOF OF (2):
+			(1) Suppose (A <= B AND B <= A)
+		 	WTS: (A = B)
+				From (A <= B) we have Vx (x e A -> x e B)
+				From (B <= A) we have Vx (x e B -> x e A)
+				We have Vx (x e A <-> x e B)
+				Therefore, by extensionality we have (A = B). QED
+	Therefore, we have (A = B <-> A <= B and B <= A). QED
+
+
+
+1. extensionality:	A = B <-> Vx(x e A <-> x e B)
+2. subset:			A <= B <-> Vx(x e A -> x e B)
+3. intersection:	{x : x e A AND x e B}
+4. union:			{x : x e A OR x e B}

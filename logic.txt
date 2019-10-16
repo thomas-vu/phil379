@@ -1,0 +1,362 @@
+DEF Set: A collection of objects considered as an independent object.
+
+DEF Axiom of Extensionality: A = B <-> Vx(x e A <-> x e B)
+
+DEF Set abstraction: Vy ( y e {x : phi(x)} <-> phi(y) )
+
+DEF emptyset: {x : x =/= x}
+
+{2, 5, 7, 119} ... Specified set by enumeration
+{x : x is an even integer greater than 2 and less than 15} = {4, 6, 8, 10, 12, 14} ... Set abstraction
+
+DEF A is a subset of B (A <= B): A <= B <-> Vx (x e A -> x e B)
+
+N = {0, 1, 2, 3, ...}
+Z+ = {1, 2, 3, ...}
+Z = {... -3, -2, -1, 0, 1, 2, 3, ...}
+
+PROP: If A <= B and B <= C then A <= C
+
+N e {N, Z, emptyset}
+N </= {N, Z, emptyset}
+
+{emptyset} e and <= {emptyset, {emptyset}}   ...Why?
+
+Day 2--------------------------------------------------------------------------------------------------------
+
+DEF Intersection of A and B (A ^ B): {x : x e A AND x e B}
+DEF Union of A and B (A U B): {x : x e A OR x e B}
+
+PROPOSITION/THEOREM/LEMMA
+
+PROP: (A = B <-> A <= B and B <= A)
+PROOF OF PROP:
+	WTS: (1) IF (A = B)				THEN (A <= B AND B <= A)
+		 (2) IF (A <= B AND B <= A) THEN (A = B)
+		 PROOF OF (1):
+			(1) Suppose (A = B)
+		 	WTS: (A <= B AND B <= A)
+				 WTS: (a) A <= B
+					By def. of subset: A <= B <-> Vx (x e A -> x e B)
+					From the assumption (A = B), by extensionality we have Vx (x e A <-> x e B)
+					Vx (x e A <-> x e B) = Vx (x e A -> x e B) AND Vx (x e B -> x e A)
+					In particular, Vx (x e A -> x e B)
+					Therefore A <= B. QED
+				 WTS: (b) B <= A
+					By def. of subset: B <= A <-> Vx (x e B -> x e A)
+					From the assumption (A = B), by extensionality we have Vx (x e A <-> x e B)
+					Vx (x e A <-> x e B) = Vx (x e A -> x e B) AND Vx (x e B -> x e A)
+					In particular, Vx (x e B -> x e A)
+					Therefore B <= A. QED
+			Therefore (A <= B AND B <= A). QED
+		 PROOF OF (2):
+			(1) Suppose (A <= B AND B <= A)
+		 	WTS: (A = B)
+				From (A <= B) we have Vx (x e A -> x e B)
+				From (B <= A) we have Vx (x e B -> x e A)
+				We have Vx (x e A <-> x e B)
+				Therefore, by extensionality we have (A = B). QED
+	Therefore, we have (A = B <-> A <= B and B <= A). QED
+
+1. extensionality:	A = B <-> Vx(x e A <-> x e B)
+2. subset:			A <= B <-> Vx(x e A -> x e B)
+3. intersection:	{x : x e A AND x e B}
+4. union:			{x : x e A OR x e B}
+
+PROP: (A U B = B) <-> (A <= B)
+PROOF:
+	Assume [I] (A U B = B), WTS (A <= B):
+		Assume [II] x e A, WTS x e B:
+			x e {x : x e A OR x e B}
+			x e A U B
+			A U B <= B
+			x e B
+	QED
+	Assume [III] (A <= B), WTS (A U B = B)
+		WTS: A U B = B
+		IF (by ext) (a) IF x e A U B THEN x e B
+					(b) IF x e B     THEN x e A U B (A <= A U B)
+		(a) Assume x e A U B, WTS: x e B
+		so x e {y e A OR y e B}
+		so (x e A) OR (x e B)
+		
+Assume x e A WTS x e B
+	By [III] A <= B, ie IF x e A THEN x e B.
+	so x e B.
+
+[I] {x : x e A OR x e B} = B
+iff	(A U B <= B) AND (B <= A U B)
+    ({x : x e A OR x e B} <= B) 
+	
+Vx (phi(x) -> psi(x))
+
+Day 3--------------------------------------------------------------------------------------------------------
+
+DEF: The set of subsets of a set A = {B : B <= A} is called the power set of A [P(A)]
+If |A| = n then |P(A)| = 2^n
+
+DEF: Ordered pair = <a, b>
+<a1, a2> = <a2, b2> IFF a1 = a2 AND b1 = b2
+
+DEF <a, b> = {{a}, {a, b}} (Wiener-Kuratowski)
+<b, a> = {{b}, {a, b}}
+<a, a> = {{a}}
+
+DEF Cartesian Product = A X B = {<x, y> : xeA ^ xeB}
+
+RELATIONS - Relations are sets of pairs.
+
+Consider N, n<k
+            n<=k
+            n=k
+
+N x N
+L = {<n, k> : n<k}
+K = {<n, k> : n<=k}
+I = {<n, k> : n=k}
+K = L U I
+
+DEF A subset of A X A = A^2 is called a RELATION ON A.
+
+R <= A^2  ... "R is a relation on A"
+
+xRy/Rxy : <x, y> e R   "x bears the relation to y", or "x R y"
+
+DEF An equivalence relation is any relation R <= AxA with 3 properties:
+(1) Vx e A, Rxx (<x, x> e R)          (R is Reflexivity) all nodes have arrows to itself
+(2) Vx, yeA: Rxy -> Ryx               (R is Symmetric) all arrows are bidirectional
+(3) Vx,y,z e A: (Rxy ^ Ryz) -> Rxz    (R is Transitive) a chain of 2 arrows always has a direct arrow
+
+--------------------------------------------------
+L_A = {<x, y> : x,y e A ^ x < y}
+L_A = {<1, 2>, <1, 3>, <1, 4>,
+			   <2, 3>, <2, 4>,
+			  		   <3, 4>}
+
+1------>2
+|       
+|
+v
+3		4
+
+L_A is transitive. 
+L_A is not reflexive. (anti-reflexive)
+L_A is not symmetric. 
+--------------------------------------------------
+IdA = {<x, x>, xeA} (aka = ) is an equivalence relation.
+
+- Reflexive: Vx e A, x=x, so <x, x> e IdA ... Vx IdA xx
+- Symmetric: Vx e A, x=x, so <x, x> e IdA ... Vx IdA xx
+
+A = {1,2,3,4}
+IdA = {<1, 1>, <2, 2>, <3, 3>, <4, 4>}
+
+1       2
+       
+
+
+3		4
+--------------------------------------------------
+P({1, 2, 3})	Rxy IFF |x| = |y|
+was partitioned into 4 equivalence classes, there was a diagram
+--------------------------------------------------
+A* = set of finite sequences of elements of A
+{emptyset U A U A^2 U A^3...}
+
+{1, 2, 3}* =
+{
+{}
+1 2 3
+11 12 13 21 22 23 31 32 33
+111 112 113 121 122 123 ...
+.
+.
+.
+}
+
+typically sets become partitioned by equivalence relations into equivalence classes
+"has the same parity as" has 2 equivalence classes over the naturals
+
+In order to prove P indirectly.
+Assume -P, prove a contradiction.
+
+Russell's Paradox:
+P: There is no set of sets that don't contain themselves.
+-P: There is a set of sets that don't contain themselves.
+
+Assume -P
+Assume R = {A: A e/ A} exists.
+
+Day 4--------------------------------------------------------------------------------------------------------
+Prove Vn n e N, P(n)			Mathematical Induction
+
+Prove 1. P(0)					Induction Basis
+	  2. Vn (P(n) -> P(n+1))	Induction Step
+
+Vn: n is even     or    n is odd
+    Ek n = 2k	  V     Ek n = 2k + 1
+
+Induction Basis: 0 is either even or odd, it is enough to show that 0 is even, i.e. Ek 0 = 2k. Give a witness. 0 = 2(0)
+Induction Step:
+
+z(S|S)y if Ez xSz AND zSY
+R^n
+	R^1 = R
+	R^n+1 = R^n|R
+
+if R is transitive, R^n <= R
+	x R^n y -> xRy
+
+Day 5--------------------------------------------------------------------------------------------------------
+DEF (total) Functions: A -> B, associate each element of A with exactly one element of B.
+
+R <= A x B
+Rf <x, f(x)> e A x B (Rf is called the graph of the function f)
+Vx e A, E(!y e b) st Rf.xy
+
+DEF Union:
+U: V x V -> V 		(*No set of all sets, even in ZFC)
+sum: N x N -> N
+sum(<n, m>) = n + m
+
+f: P(A)^2 -> P(A)
+f(x, y) = x U y
+
+DEF Injective Function:
+VxVy e A, IF x =/= y THEN = f(x) =/= f(y)
+VxVy e A, IF f(x) = f(y) THEN x = y
+-A -> -B
+B -> A
+
+DEF Composition of f and g:
+g: A -> B
+f: B -> C
+f o g: A -> C
+  ^ "after"
+f o g = f(g(x))
+
+PROP: IF g: A->B AND f: B->C are injective THEN f o g is injective.
+
+Indirect Proof:
+	Assume g and f are injective but f o g is not.
+	i.e. assume x =/= y e A AND (f o g)(x) = (f o g)(y)
+	(f o g)(x) = (f o g)(y) by def of (f o g)(z) = f(g(z))
+	f(g(x)) = f(g(y)) since f is injective, f(u) = f(w) -> u = w
+	   u         w
+	g(x) = g(y) since g is injective
+	x = y CONTRADICTION with assumption x =/= y
+
+DEF Surjective Function:
+V(y e B) E(x e A) such that f(x) = y
+
+DEF Bijective Function:
+f is Bijective IFF f is both Injective and Surjective
+
+PROP: IF f is Bijective THEN f has an Inverse Function f^-1
+	IdA(x) = x
+	f o f^-1 = IdB
+	f^-1 o f = IdA
+
+PROOF:
+	To show that such a function exists, we have to:
+	1. Define It
+	2. Show it's a function
+	3. Prove it has the required properties
+
+	1. f^-1(y) = the x e A such that f(x) = y
+	2. To show this definition is good, WTS V(y e b) E(!x e A) such that f(x) = y
+	   Since f is Bijective:
+	   f is surjective: V(y e B)E(x e a) such that f(x) = y
+	   f is injective: V(y e B) There is at most one x e A such that f(x) = y
+	3. WTS (f^-1 o f)(x) = x
+	   (f^1 o f)(x) = f^-1(f(x)) = x
+							^y
+
+Day 6--------------------------------------------------------------------------------------------------------
+Size of sets:
+
+DEF: An enumeration of A is a one-way list containing all elements of A.
+Every finite set has an infinite enumeration (with repetition).
+Is it true that every set that has an enumeration also has one without repetitions?
+FORMAL DEF: An (infinite) enumeration of A is a surjective function f: Z+ -> A
+
+PROP: If A is infinite and enumerable, then it has an injective enumeration.
+PROOF:
+	Assume A is infinite and f: Z+ -> A is surjective.
+	WTS E(g: Z+ -> A) that is surjective and injective.
+	Let g: Z+ -> A be defined as follows.
+		g(1) = f(1)
+		g(n+1) = "The first value of f not already among g(1) ... g(n)"
+			   = f(k) where k is the smallest # such that f(k) -e {g(1) ... g(n)}
+	1. g is defined for all n:
+	   IB: n = 1, g(1), by definition = f(1)
+	   IH: g(1) ... g(n) are all defined
+	   WTS g(n+1) also defined
+
+Day 7--------------------------------------------------------------------------------------------------------
+DEF: A set A is countable iff either A = emptyset OR there exists an enumeration f (i.e. f: Z+ -> A and f is surjective for A)
+Countable = emptyset OR finite OR (infinite and countable)
+
+PROP: If A is countable and B <= A, then B is countable.
+PROOF: Assume A is countable and B <= A.
+By definition, either A = emptyset or A has an enumeration, f.
+If A = emptyset, then B = emptyset so B is countable.
+Else:
+	Suppose f: Z+ -> A is an enumeration of A.
+		If B = emptyset, then we are done.
+		Assume B =/= emptyset so there exists b e B.
+		Vn e Z+, if f(n) e B, then let g(n) = f(n)
+			     if f(n) -e B, then let g(n) = b
+		WTS (1) g is a function from Z+ -> B.
+			(2) g is surjective.
+
+(1) For each n e Z+, g(n) is defined [g(n) e B] since f(n) is defined.
+Since f(n) e A, either f(n) e B, in which case g(n) = f(n) e B or f(n) -e B in which case g(n) = b e B.
+Furthermore, g maps n to a single element in B.
+
+Since f is surjective, Va e A, there exists m e Z+ such that f(m) = a.
+Hence, Vc e B, there exists n e Z+ such that f(n) = c.
+By definition of g, since f(n) = c e B, g(n)=f(n)=c.
+Therefore, g is surjective.
+
+To show that a function is surjective you show that:
+For every element y in the codomain, there exists an element, x, in the domain such that f(x) = y
+f: domain -> codomain
+
+Day 9?-------------------------------------------------------------------------------------------------------
+cantor zig zag method
+
+Day 10-------------------------------------------------------------------------------------------------------
+
+FOL
+Syntax of FOL:
+	Predicate symbols: A^1_1, A^1_2, A^1_3, ...
+					   A^2_1, A^2_2, A^2_3, ...
+	Constant symbols: a_1, a_2, a_3, ...
+	Function symbols: f^n_i, i-th n-place function symbol
+	Variables: V_0, V_1, V_2, ...
+
+Language of arithmetic L_A = {A^2_1, a_1, f^1_1, f^2_1, f^2_2}
+							  <      0    '      +      *
+Terms:
+	- Every constant symbol is a term. (a_1)
+	- Every variable is a term.		   (V_1, V_2, V_3, ...)
+	- For any n-place function symbol f (in the language):
+	  If t_1, ..., t_n are terms, then f(t_1, ..., t_n) is a term.
+	- Nothing else is a term.
+
+Atomic Formula:
+	- For any n-place predicate symbol P and n terms t1, ..., tn:
+	  P(t1, ..., tn) is an atomic formula.
+	- _|_ is an atomic formula. (Falsum)
+	- T abbreviates -_|_
+
+Formulas:
+	- Every atomic formula is a formula.
+	- If A is a formula, so is -A.
+	- If A and B are formulas, so is (A^B)
+	                                 (AvB)
+	                                 (A->B)
+	  								 (A<->B) abbreviates (A->B)^(B->A)
+	- If A is a formula, and x is a variable, so is Vx(A).
+	- If A is a formula, and x is a variable, so is Ex(A).   Vx(_|_) is a valid formula.

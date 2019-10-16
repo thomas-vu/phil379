@@ -1,0 +1,84 @@
+0. A=B <-> Vx(xeA <-> xeB)		(extensionality)
+1. A<=B <-> Vx(xeA -> xeB)		(subset)
+2. {x: xeA ^ xeB}				(intersection)
+3. {x: xeA v xeB}				(union)
+
+23: A=B <-> (A<=B ^ B<=A)								(BY 14 AND 22)
+PROOF:
+	14: A=B -> (A<=B ^ B<=A)							(BY 4 AND 13)
+	PROOF:
+		4. A=B											(ASSUME)
+	 	13: A<=B ^ B<=A									(BY 8 AND 12)
+		PROOF:
+			8: A<=B										(BY 1 AND 7)
+			PROOF:
+				5. Vx(xeA <-> xeB)						(BY 0 AND 4)
+				6. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)  	(BY 5)
+				7. Vx(xeA -> xeB)						(BY 6)
+			12: B<=A									(BY 1 AND 11)
+			PROOF:
+				9.  Vx(xeA <-> xeB)						(BY 0 AND 4)
+				10. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)		(BY 9)
+				11. Vx(xeB -> xeA)						(BY 10)
+	22: (A<=B ^ B<=A) -> A=B							(BY 15 AND 21)
+	PROOF:
+		15. A<=B ^ B<=A									(ASSUME)
+	 	21: A=B											(BY 0 AND 20)
+		PROOF:
+			16. A<=B									(BY 15)
+			17. Vx(xeA -> xeB)							(BY 1 AND 16)
+			18. B<=A									(BY 15)
+			19. Vx(xeB -> xeA)							(BY 1 AND 18)
+			20. Vx(xeA <-> xeB)							(BY 17 AND 19)
+
+--------------------------------------------------------------------------------
+
+0. A=B <-> Vx(xeA <-> xeB)		(extensionality)
+1. A<=B <-> Vx(xeA -> xeB)		(subset)
+2. {x: xeA ^ xeB}				(intersection)
+3. {x: xeA v xeB}				(union)
+
+23: A=B <-> (A<=B ^ B<=A)								(BY 14 AND 22)
+	14: A=B -> (A<=B ^ B<=A)							(BY 4 AND 13)
+		4. A=B											(ASSUME)
+		13: A<=B ^ B<=A									(BY 8 AND 12)
+			8: A<=B										(BY 1 AND 7)
+				5. Vx(xeA <-> xeB)						(BY 0 AND 4)
+				6. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)  	(BY 5)
+				7. Vx(xeA -> xeB)						(BY 6)
+			12: B<=A									(BY 1 AND 11)
+				9.  Vx(xeA <-> xeB)						(BY 0 AND 4)
+				10. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)		(BY 9)
+				11. Vx(xeB -> xeA)						(BY 10)
+	22: (A<=B ^ B<=A) -> A=B							(BY 15 AND 21)
+		15. A<=B ^ B<=A									(ASSUME)
+		21: A=B											(BY 0 AND 20)
+			16. A<=B									(BY 15)
+			17. Vx(xeA -> xeB)							(BY 1 AND 16)
+			18. B<=A									(BY 15)
+			19. Vx(xeB -> xeA)							(BY 1 AND 18)
+			20. Vx(xeA <-> xeB)							(BY 17 AND 19)
+
+--------------------------------------------------------------------------------
+
+0. A=B <-> Vx(xeA <-> xeB)				(AXIOM)
+1. A<=B <-> Vx(xeA -> xeB)				(AXIOM)
+2. A=B									(ASSUME)
+3. Vx(xeA <-> xeB)						(BY 0 AND 2)
+4. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)  	(BY 3)
+5. Vx(xeA -> xeB)						(BY 4)
+6. Vx(xeB -> xeA)						(BY 4)
+7. A<=B									(BY 1 AND 5)
+8. B<=A									(BY 1 AND 6)
+9. A<=B ^ B<=A							(BY 7 AND 8)
+10. A=B -> (A<=B ^ B<=A)				(BY 2 AND 9)
+11. A<=B ^ B<=A							(ASSUME)
+12. A<=B								(BY 11)
+13. B<=A								(BY 11)
+14. Vx(xeA -> xeB)						(BY 1 AND 12)
+15. Vx(xeB -> xeA)						(BY 1 AND 13)
+add conjunction here
+16. Vx(xeA <-> xeB)						(BY 14 AND 15)
+17. A=B									(BY 0 AND 16)
+18. (A<=B ^ B<=A) -> A=B				(BY 11 AND 17)
+19. A=B <-> (A<=B ^ B<=A)				(BY 10 AND 18)

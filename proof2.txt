@@ -1,0 +1,32 @@
+0: A=B <-> Vx(xeA <-> xeB)		(extensionality)
+1: A<=B <-> Vx(xeA -> xeB)		(subset)
+2: {x: xeA ^ xeB}				(intersection)
+3: {x: xeA v xeB}				(union)
+
+PROP: A=B <-> (A<=B ^ B<=A)
+PROOF:
+	PROP: A=B -> (A<=B ^ B<=A)
+	PROOF:
+		4: A=B
+	 	12: A<=B ^ B<=A									(BY 8 AND 11)
+		PROOF:
+			8: A<=B										(BY 1)
+			PROOF:
+				5. Vx(xeA <-> xeB)						(BY 0 AND 4)
+				6. Vx(xeA -> xeB) ^ Vx(xeB -> xeA)  	(BY ?)
+				7. Vx(xeA -> xeB)						(BY ?)
+			11: B<=A									(BY 1)
+			PROOF:
+				8.  Vx(xeA <-> xeB)						(BY 0 AND 4)
+				9.  Vx(xeA -> xeB) ^ Vx(xeB -> xeA)		(BY ?)
+				10. Vx(xeB -> xeA)						(BY ?)
+
+	WTS (2): (A <= B ^ B <= A) -> (A = B)
+	PROOF OF (2):
+		(1) Suppose (A <= B AND B <= A)
+	 	WTS: (A = B)
+			From (A <= B) we have Vx (x e A -> x e B)
+			From (B <= A) we have Vx (x e B -> x e A)
+			We have Vx (x e A <-> x e B)
+		Therefore, by extensionality we have (A = B). QED
+	Therefore, we have (A = B <-> A <= B and B <= A). QED
