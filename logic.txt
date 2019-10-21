@@ -463,3 +463,83 @@ Inductive step:
 M, S |= (A^B)[t/x] IFF M, S' |- A ^ B
 IFF M, S |= (A[t/x] ^ B[t/x])
 i gave up here
+
+Day 12-------------------------------------------------------------------------------------------------------
+M, S |= A (west coast model theory)
+
+I |= Vx A(x)	(east coast model theory)
+I' |= A(a)
+for some o e |I|
+	let I' be like I except a^I' = o
+
+If A is a sentence, (no free variables)
+Then M, S |= A IFF M, S' |= A
+for any S, S' variable assignments.
+
+M |= A means: M, S |= A for any/all? variable assignments
+
+T "Gamma" (set of sentences) |= A IFF for all structures M: if M |= B for all B e T then M |= A
+						   "entails"
+T is satisfiable IFF for some M, M |= B for all B e M
+
+T |- A		Soundness:    T |- A -> T |= A	(easier to show)
+"proves"	Completeness: T |= A -> T |- A	(harder to show)
+
+T |= A IFF T U {-A} is unsatisfiable.
+
+Proof of T |= A -> T U {-A} is unsatisfiable.
+	Suppose T |= A then
+		Every M: If M |= T then M |= A
+		No M: M |= T and M |=/= A
+		VM(M |= T -> M |= A)		P -> Q
+		VM(-(M |= T) v M |= A)	   -P v Q
+		VM-(M |= T ^ -(M |= A))    -(P ^ -Q)
+		-EM(M |= T ^ -(M |= A))
+	No M: M |= T AND M |=/= A		(M |= -A IFF M |=/= A)
+					 M |= -A
+	No structure makes ALL B e T U {-A}
+	T U {-A} is unsatisfiable.
+
+Proof of T |= A <- T U {-A} is unsatisfiable.
+	Read the first proof "the other way around"?
+
+T |= A 						-> 	T |- A
+T U {-A} is unsatisfiable		T U {-A} is inconsistent, i.e. T, -A |- _|_ (contradiction)
+(Contrapositive) If T U {-A} |-/- _|_ then T U {-A} is satisfiable
+
+Semantic deduction theorem:
+T U {A} |= B IFF T |= (A -> B)
+
+Proof: T U {A} |= B, by definition of |=, there is no M such that: M |= T U {A} AND M |=/= B
+																   M |= T AND M |= A AND M |=/= B
+
+A
+.
+.
+.
+B
+------
+A -> B
+
+IF (T |= A) AND (T |= A -> B) THEN T |= B
+
+PROOFS (inductively defined):
+	- Every sentence A by itself is a proof with conclusion A.
+	- If d (delta) is a proof with conclusion A, then we have proofs AvB (or BvA) by "or introduction"
+	- We have "or elimination" by proof by cases
+	- If d1, d2 are proofs of A, B respectively, then we have proof A^B "and introduction"
+	- If d is a proof of A^B, then we have proofs of A, B by "and elimination"
+	- For ->, we do "conditional introduction" in order to discharge assumptions
+	- I missed "conditional elimination"
+
+Examples:
+   A   B
+----------- ^I	(and introduction)
+	A^B
+
+{A, C} |= (AvB)^C
+	A
+  -----
+   AvB      C
+---------------
+  (AvB) ^ C
