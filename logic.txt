@@ -565,3 +565,39 @@ Prove contrapositive: Gamma |=/= B -> T |=/= B
 Suppose Gamma |=/= B.
 	EM(M |= Gamma, M |=/= B)
 If Gamma |= A then M |= A. So M |= T.
+
+Theory of M:
+Th(M) = {A: M |= A}
+
+The standard model of arithmetic. (Q) (Robinson arithmetic)
+n |= Vx x' =/= 0
+n |= Vx(x=0 v Ey(y'=x))
+n |= VxVx(x=/=y -> x'=/=y')
+n |= VxVy(x<y <-> Ez(z'+x=y))
+
+Q: Can we axiomatize Th(n)
+	E Gamma: {A: Gamma |= A} = Th(n)
+
+Q |=/= VxVy (x+y) = (y+x)
+
+Godel's Incompleteness Theorem says No.
+For no "reasonable" Gamma is {A: Gamma |= A} = Th(n)
+
+Partial Orders (R):
+	- Reflexive
+	- Anti-symmetric
+	- Transitive
+
+R is a partial order IFF R = A^M where M |= 1, 2, 3 that express A is reflexive, anti-symmetric, and transitive
+1. Vx A(x, x)
+2. VxVy (A(x, y) -> A(y, x))
+3. VxVyVz ((A(x, y) ^ A(y, z)) -> A(x, z))
+
+T |- A? Can we decide this generally (for all Gamma, A) mechanically?
+Answer: No. Church-Turing thesis.
+
+DEF T is complete if VA, either T |- A or T |- -A.
+So if T is complete and consistent, "T |- A?" is decidable.
+
+A theory is "complete" if it proves at least one of A or -A for all sentences A.
+A theory is "consistent" if it proves at most one of A or -A for all sentences A.
