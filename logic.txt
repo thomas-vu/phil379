@@ -546,3 +546,22 @@ Examples:
 
 Day 13-------------------------------------------------------------------------------------------------------
 natural deduction practice (see ipad)
+
+Day 14-------------------------------------------------------------------------------------------------------
+
+DEF Theory: Any set T of sentences closed under entailment.
+T |= A -> A e T
+
+Gamma ... set of axioms.
+Theory T axiomatized by Gamma.
+T = {A : Gamma |= A}
+
+PROP: T is a theory.
+	WTS: T |= B -> B e T
+	WTS: T |= B -> Gamma |= B
+
+Observe: Gamma <= T
+Prove contrapositive: Gamma |=/= B -> T |=/= B
+Suppose Gamma |=/= B.
+	EM(M |= Gamma, M |=/= B)
+If Gamma |= A then M |= A. So M |= T.
