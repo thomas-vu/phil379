@@ -618,3 +618,37 @@ Undecidability
                  <q, s> -> <q', s', {L, R, N}>
 
 
+M = <Sigma, Q, q0, d>
+Sigma: finite alphabet + |> + _
+Q: finite set of states
+q0: initial state (q0 e Q)
+d (delta i.e. transition function): Q x Sigma -/-> Q x Sigma x {L, R, N} (a partial function) (TM halts if <state, read_symbol> is undefined)
+
+DEF: Configuration of a TM
+	<w, q, n>
+	w - a finite sequence of symbols from the alphabet (w e Sigma*)
+	q e Q
+	n e N, n <= len(w)
+
+Initial config for input I e Sigma*
+<I, q0, 1>
+
+Sigma = {|>, _, 1}
+I = 111_11
+
+  0   1   2   3   4   5   6   7   8   9  10  11  12
+----------------------------------------------------
+||> | 1 | 1 | 1 | _ | 1 | 1 |   |   |   |   |   |   | ...
+----------------------------------------------------
+      ^
+      q0
+
+<"|>111_11", q0, 1> (Initial configuration)
+
+If C = <w, q, n> is a configuration
+Either d(q, (w)n) is undefined; C is a halting configuration.
+Or d(q, (w)n) = <q', s', direction={L, R, N}>
+THEN C' = <w', q', n'> is the next config where:
+     n' = {n + 1 if direction = R
+          {n     if direction = N (or if direction = L and n = 0)
+          {n - 1 if direction = L and n > 0
